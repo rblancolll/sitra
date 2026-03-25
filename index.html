@@ -199,7 +199,7 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
       <div class="browser-dots"><div class="bd bd1"></div><div class="bd bd2"></div><div class="bd bd3"></div></div>
       <div class="browser-bar-url">app.sitra.gt — Dashboard Principal</div>
     </div>
-    <img src="https://i.ibb.co/vxyp7nPy/dashboard.jpg" alt="SITRA Dashboard" style="width:100%;display:block;max-height:520px;object-fit:cover;object-position:top">
+    <img src="https://i.ibb.co/vxyp7nPy/dashboard.jpg" alt="SITRA Dashboard" onclick="openLightbox(-1)" style="width:100%;display:block;max-height:520px;object-fit:cover;object-position:top;cursor:zoom-in">
   </div>
 </section>
 
@@ -400,13 +400,68 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
 </footer>
 
 <script>
-const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('in'),i*70)})},{threshold:0.08})
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
-</script>
-</body>
-</html>
-const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('in'),i*70)})},{threshold:0.08})
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+// Scroll reveal
+const obs=new IntersectionObserver(function(e){e.forEach(function(el,i){if(el.isIntersecting)setTimeout(function(){el.target.classList.add('in')},i*70)})},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+// Lightbox data - web images + hero dashboard
+var lbImages=[
+  {src:'https://i.ibb.co/vxyp7nPy/dashboard.jpg',cap:'Dashboard Principal — métricas operativas en tiempo real'},
+  {src:'https://i.ibb.co/hRLhsZtF/gestion-turnos.jpg',cap:'Gestión de Turnos — planificación y asignación de pedidos'},
+  {src:'https://i.ibb.co/847c3sW4/registro-ubicacion.jpg',cap:'Registro de Ubicaciones — mapa interactivo con GPS'},
+  {src:'https://i.ibb.co/3Py9PMz/registro-pilotos.jpg',cap:'Gestión de Pilotos — validación de licencias y estado'},
+  {src:'https://i.ibb.co/ZznRsTC6/registro-documentacion.jpg',cap:'Control de Documentación — alertas de vencimiento'},
+  {src:'https://i.ibb.co/gZ06w8Nn/gestion-usuarios.jpg',cap:'Gestión de Usuarios — roles, permisos y documentación'},
+  {src:'https://i.ibb.co/qMv5TD8b/reportes.jpg',cap:'Reportes Operativos — exportación en Excel'}
+];
+var lbIdx=0;
+
+function openLightbox(i){
+  if(i===-1) i=0;
+  lbIdx=i;
+  document.getElementById('lb-img').src=lbImages[i].src;
+  document.getElementById('lb-caption').textContent=lbImages[i].cap;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLightboxOutside(e){
+  if(e.target===document.getElementById('lightbox')) closeLightbox();
+}
+function lbNav(dir){
+  lbIdx=(lbIdx+dir+lbImages.length)%lbImages.length;
+  document.getElementById('lb-img').src=lbImages[lbIdx].src;
+  document.getElementById('lb-caption').textContent=lbImages[lbIdx].cap;
+}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='ArrowLeft') lbNav(-1);
+});
+
+// Mobile app slider
+var appIdx=0;
+var slides=document.querySelectorAll('.mobile-slide');
+var dots=document.querySelectorAll('.mdot');
+
+function updateSlider(){
+  slides.forEach(function(s,i){s.style.transform='translateX('+(i-appIdx)*100+'%)';});
+  dots.forEach(function(d,i){d.classList.toggle('active',i===appIdx);});
+}
+slides.forEach(function(s,i){s.style.transform='translateX('+i*100+'%)';});
+
+function slideApp(dir){
+  appIdx=(appIdx+dir+slides.length)%slides.length;
+  updateSlider();
+}
+function goSlide(i){
+  appIdx=i;
+  updateSlider();
+}
 </script>
 </body>
 </html>
