@@ -127,7 +127,7 @@ h2 em{font-style:normal;color:var(--blue2)}
 .mobile-slider-wrap{position:relative;width:260px}
 .mobile-slider{display:flex;overflow:hidden;border-radius:28px;box-shadow:0 8px 40px rgba(0,0,0,.15)}
 .mobile-slide{flex:0 0 100%;transition:transform .35s cubic-bezier(.4,0,.2,1)}
-.mobile-slide img{width:100%;display:block;border-radius:28px}
+.mobile-slide img{width:100%;display:block;border-radius:28px;cursor:zoom-in}
 .slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:#fff;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);color:var(--navy);transition:background .15s;z-index:2}
 .slider-btn:hover{background:var(--bg2)}
 .slider-prev{left:-18px}
@@ -345,10 +345,10 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
     </div>
     <div class="mobile-slider-wrap">
       <div class="mobile-slider" id="mobileSlider">
-        <div class="mobile-slide"><img src="https://i.ibb.co/pB315HFM/1000432027.jpg" alt="App vista 1"></div>
-        <div class="mobile-slide"><img src="https://i.ibb.co/VcRp1MJb/1000432028.jpg" alt="App vista 2"></div>
-        <div class="mobile-slide"><img src="https://i.ibb.co/y7hBdtk/1000432029.jpg" alt="App vista 3"></div>
-        <div class="mobile-slide"><img src="https://i.ibb.co/XrXM05tk/1000432030.jpg" alt="App vista 4"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/Kp2rCd4S/1000432027-1.jpg" alt="App vista 1" onclick="openAppLightbox(0)"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/NHSBN66/1000432028-1.jpg" alt="App vista 2" onclick="openAppLightbox(1)"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/cXS6fskN/1000432029-1.jpg" alt="App vista 3" onclick="openAppLightbox(2)"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/N607TGYw/1000432030-1.jpg" alt="App vista 4" onclick="openAppLightbox(3)"></div>
       </div>
       <button class="slider-btn slider-prev" onclick="slideApp(-1)">&#8249;</button>
       <button class="slider-btn slider-next" onclick="slideApp(1)">&#8250;</button>
@@ -366,10 +366,10 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
 <div id="lightbox" onclick="closeLightboxOutside(event)">
   <div class="lb-inner">
     <button class="lb-close" onclick="closeLightbox()">&#10005;</button>
-    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <button class="lb-nav lb-prev" onclick="document.getElementById("lightbox").dataset.mode==="app" ? lbNavApp(-1) : lbNav(-1)">&#8249;</button>
     <img id="lb-img" src="" alt="">
     <div class="lb-caption" id="lb-caption"></div>
-    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+    <button class="lb-nav lb-next" onclick="document.getElementById("lightbox").dataset.mode==="app" ? lbNavApp(1) : lbNav(1)">&#8250;</button>
   </div>
 </div>
 
@@ -421,6 +421,7 @@ function openLightbox(i){
   lbIdx=i;
   document.getElementById('lb-img').src=lbImages[i].src;
   document.getElementById('lb-caption').textContent=lbImages[i].cap;
+  document.getElementById('lightbox').dataset.mode='web';
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -436,11 +437,34 @@ function lbNav(dir){
   document.getElementById('lb-img').src=lbImages[lbIdx].src;
   document.getElementById('lb-caption').textContent=lbImages[lbIdx].cap;
 }
+
+var appImages=[
+  {src:'https://i.ibb.co/Kp2rCd4S/1000432027-1.jpg',cap:'App Móvil — Vista 1'},
+  {src:'https://i.ibb.co/NHSBN66/1000432028-1.jpg',cap:'App Móvil — Vista 2'},
+  {src:'https://i.ibb.co/cXS6fskN/1000432029-1.jpg',cap:'App Móvil — Vista 3'},
+  {src:'https://i.ibb.co/N607TGYw/1000432030-1.jpg',cap:'App Móvil — Vista 4'}
+];
+var appLbIdx=0;
+function openAppLightbox(i){
+  appLbIdx=i;
+  document.getElementById('lb-img').src=appImages[i].src;
+  document.getElementById('lb-caption').textContent=appImages[i].cap;
+  document.getElementById('lightbox').dataset.mode='app';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function lbNavApp(dir){
+  appLbIdx=(appLbIdx+dir+appImages.length)%appImages.length;
+  document.getElementById('lb-img').src=appImages[appLbIdx].src;
+  document.getElementById('lb-caption').textContent=appImages[appLbIdx].cap;
+}
 document.addEventListener('keydown',function(e){
-  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  var lb = document.getElementById('lightbox');
+  if(!lb.classList.contains('open')) return;
   if(e.key==='Escape') closeLightbox();
-  if(e.key==='ArrowRight') lbNav(1);
-  if(e.key==='ArrowLeft') lbNav(-1);
+  var isApp = lb.dataset.mode==='app';
+  if(e.key==='ArrowRight') isApp ? lbNavApp(1) : lbNav(1);
+  if(e.key==='ArrowLeft') isApp ? lbNavApp(-1) : lbNav(-1);
 });
 
 // Mobile app slider
