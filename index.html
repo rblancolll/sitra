@@ -113,8 +113,41 @@ h2 em{font-style:normal;color:var(--blue2)}
 .result-pct{font-family:'Plus Jakarta Sans',sans-serif;font-size:3.5rem;font-weight:800;color:var(--blue2);line-height:1}
 .result-card h3{font-size:.95rem;font-weight:600;color:var(--navy);margin:12px 0 6px}
 .result-card p{font-size:.82rem;color:var(--text2);line-height:1.6}
-.tech-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:700px;margin:0 auto}
-.tech-pill{background:var(--bg);border:1px solid var(--border);padding:7px 16px;border-radius:100px;font-size:.82rem;font-weight:500;color:var(--text2)}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto 60px}
+.gal-item{background:var(--bg);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.gal-item:hover{box-shadow:0 8px 30px rgba(0,0,0,.12);transform:translateY(-3px)}
+.gal-img-wrap{aspect-ratio:16/10;overflow:hidden;background:var(--bg3)}
+.gal-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.gal-item:hover .gal-img-wrap img{transform:scale(1.04)}
+.gal-caption{padding:14px 16px}
+.gal-caption strong{display:block;font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:3px}
+.gal-caption span{font-size:.78rem;color:var(--text3);line-height:1.5}
+.mobile-section{display:flex;flex-direction:column;align-items:center;gap:24px;max-width:1100px;margin:0 auto}
+.mobile-header{text-align:center}
+.mobile-slider-wrap{position:relative;width:260px}
+.mobile-slider{display:flex;overflow:hidden;border-radius:28px;box-shadow:0 8px 40px rgba(0,0,0,.15)}
+.mobile-slide{flex:0 0 100%;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.mobile-slide img{width:100%;display:block;border-radius:28px}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:#fff;border:1px solid var(--border);border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);color:var(--navy);transition:background .15s;z-index:2}
+.slider-btn:hover{background:var(--bg2)}
+.slider-prev{left:-18px}
+.slider-next{right:-18px}
+.mobile-dots{display:flex;gap:8px}
+.mdot{width:8px;height:8px;border-radius:50%;border:none;background:var(--border2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
+.mdot.active{background:var(--blue2);transform:scale(1.3)}
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;padding:20px}
+#lightbox.open{display:flex}
+.lb-inner{position:relative;max-width:900px;width:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
+#lb-img{max-width:100%;max-height:80vh;border-radius:10px;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-caption{color:rgba(255,255,255,.8);font-size:.9rem;text-align:center}
+.lb-close{position:fixed;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:38px;height:38px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lb-close:hover{background:rgba(255,255,255,.2)}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lb-nav:hover{background:rgba(255,255,255,.2)}
+.lb-prev{left:16px}
+.lb-next{right:16px}
+@media(max-width:900px){.gallery-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:1fr}}
 .cta-section{background:var(--navy);padding:100px 5%;text-align:center;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(37,99,235,.2) 0%,transparent 70%);pointer-events:none}
 .cta-section h2{color:#fff;position:relative}
@@ -166,42 +199,7 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
       <div class="browser-dots"><div class="bd bd1"></div><div class="bd bd2"></div><div class="bd bd3"></div></div>
       <div class="browser-bar-url">app.sitra.gt — Dashboard Principal</div>
     </div>
-    <div class="dashboard-mockup">
-      <div class="dash-sidebar">
-        <div class="dash-logo">SIT<span>RA</span></div>
-        <div class="dash-nav-item active"><div class="dash-nav-dot"></div>Dashboard</div>
-        <div class="dash-nav-item"><div class="dash-nav-dot"></div>Pilotos</div>
-        <div class="dash-nav-item"><div class="dash-nav-dot"></div>Camiones</div>
-        <div class="dash-nav-item"><div class="dash-nav-dot"></div>Asignaciones</div>
-        <div class="dash-nav-item"><div class="dash-nav-dot"></div>Rutas</div>
-        <div class="dash-nav-item"><div class="dash-nav-dot"></div>Reportes</div>
-      </div>
-      <div class="dash-main">
-        <div class="dash-stats">
-          <div class="dash-stat"><div class="ds-n">124</div><div class="ds-l">Flotas activas</div><div class="ds-badge badge-up">↑ 12%</div></div>
-          <div class="dash-stat"><div class="ds-n">45</div><div class="ds-l">Pilotos disponibles</div><div class="ds-badge badge-up">↑ 8%</div></div>
-          <div class="dash-stat"><div class="ds-n">79</div><div class="ds-l">En ruta ahora</div><div class="ds-badge badge-up">↑ 5%</div></div>
-          <div class="dash-stat"><div class="ds-n">92%</div><div class="ds-l">Eficiencia</div><div class="ds-badge badge-up">↑ 3%</div></div>
-        </div>
-        <div class="dash-map">
-          <div class="dash-map-title">Rastreo en tiempo real</div>
-          <div class="map-area">
-            <div class="map-grid"></div>
-            <div class="map-pin blue" style="top:30%;left:25%"></div>
-            <div class="map-pin green" style="top:55%;left:60%"></div>
-            <div class="map-pin blue" style="top:20%;left:70%"></div>
-            <div class="map-pin amber" style="top:70%;left:40%"></div>
-            <div class="map-pin green" style="top:40%;left:80%"></div>
-          </div>
-        </div>
-        <div class="dash-table">
-          <div class="dt-head"><span>Piloto</span><span>Ruta</span><span>Estado</span></div>
-          <div class="dt-row"><span>Carlos Mendez</span><span>Ruta 04-B</span><span><div class="dt-status st-ruta">En ruta</div></span></div>
-          <div class="dt-row"><span>Ana López</span><span>Ruta 07-A</span><span><div class="dt-status st-libre">Disponible</div></span></div>
-          <div class="dt-row"><span>Luis García</span><span>Ruta 02-C</span><span><div class="dt-status st-inc">Incidencia</div></span></div>
-        </div>
-      </div>
-    </div>
+    <img src="https://i.ibb.co/vxyp7nPy/dashboard.jpg" alt="SITRA Dashboard" style="width:100%;display:block;max-height:520px;object-fit:cover;object-position:top">
   </div>
 </section>
 
@@ -299,12 +297,81 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
   </div>
 </section>
 
-<section class="section" style="padding:60px 5%;border-top:1px solid var(--border);text-align:center">
-  <p style="font-size:.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:24px">Stack tecnológico en producción</p>
-  <div class="tech-pills">
-    <span class="tech-pill">Laravel 10</span><span class="tech-pill">Vue.js 3</span><span class="tech-pill">Flutter Dart</span><span class="tech-pill">MySQL 8</span><span class="tech-pill">AWS EC2</span><span class="tech-pill">JWT Auth</span><span class="tech-pill">Leaflet Maps</span><span class="tech-pill">REST API</span><span class="tech-pill">Tailwind CSS</span><span class="tech-pill">Spatie Permissions</span>
+<section class="section" id="galeria" style="background:var(--bg2)">
+  <div class="section-center reveal">
+    <div class="eyebrow">Vistas del sistema</div>
+    <h2>Diseñado para que tu equipo<br><em>trabaje con claridad</em></h2>
+    <p class="section-sub">Interfaces intuitivas para cada rol — desde el administrador hasta el piloto en campo.</p>
+  </div>
+
+  <!-- WEB GALLERY -->
+  <div class="gallery-grid reveal">
+    <div class="gal-item" onclick="openLightbox(0)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/vxyp7nPy/dashboard.jpg" alt="Dashboard principal" loading="lazy"></div>
+      <div class="gal-caption"><strong>Dashboard Principal</strong><span>Vista general con métricas operativas en tiempo real</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(1)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/hRLhsZtF/gestion-turnos.jpg" alt="Gestión de turnos" loading="lazy"></div>
+      <div class="gal-caption"><strong>Gestión de Turnos</strong><span>Planificación y asignación de pedidos por piloto</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(2)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/847c3sW4/registro-ubicacion.jpg" alt="Registro de ubicaciones" loading="lazy"></div>
+      <div class="gal-caption"><strong>Registro de Ubicaciones</strong><span>Mapa interactivo con fincas, puertos y oficinas GPS</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(3)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/3Py9PMz/registro-pilotos.jpg" alt="Gestión de pilotos" loading="lazy"></div>
+      <div class="gal-caption"><strong>Gestión de Pilotos</strong><span>Listado con validación de licencias y estado</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(4)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/ZznRsTC6/registro-documentacion.jpg" alt="Registro de documentación" loading="lazy"></div>
+      <div class="gal-caption"><strong>Control de Documentación</strong><span>Alertas de vencimiento y gestión de fianzas</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(5)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/gZ06w8Nn/gestion-usuarios.jpg" alt="Gestión de usuarios" loading="lazy"></div>
+      <div class="gal-caption"><strong>Gestión de Usuarios</strong><span>Control de roles, permisos y documentación</span></div>
+    </div>
+    <div class="gal-item" onclick="openLightbox(6)">
+      <div class="gal-img-wrap"><img src="https://i.ibb.co/qMv5TD8b/reportes.jpg" alt="Reportes operativos" loading="lazy"></div>
+      <div class="gal-caption"><strong>Reportes Operativos</strong><span>Generación y exportación de reportes en Excel</span></div>
+    </div>
+  </div>
+
+  <!-- MOBILE APP -->
+  <div class="mobile-section reveal">
+    <div class="mobile-header">
+      <div class="eyebrow" style="background:var(--blue-light);color:var(--blue2)">App Móvil</div>
+      <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.4rem;font-weight:700;color:var(--navy);margin-top:8px">Para pilotos en campo</h3>
+      <p style="color:var(--text2);font-size:.9rem;margin-top:6px">Asignaciones, ubicación y reporte de incidencias desde el celular</p>
+    </div>
+    <div class="mobile-slider-wrap">
+      <div class="mobile-slider" id="mobileSlider">
+        <div class="mobile-slide"><img src="https://i.ibb.co/pB315HFM/1000432027.jpg" alt="App vista 1"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/VcRp1MJb/1000432028.jpg" alt="App vista 2"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/y7hBdtk/1000432029.jpg" alt="App vista 3"></div>
+        <div class="mobile-slide"><img src="https://i.ibb.co/XrXM05tk/1000432030.jpg" alt="App vista 4"></div>
+      </div>
+      <button class="slider-btn slider-prev" onclick="slideApp(-1)">&#8249;</button>
+      <button class="slider-btn slider-next" onclick="slideApp(1)">&#8250;</button>
+    </div>
+    <div class="mobile-dots" id="mobileDots">
+      <button class="mdot active" onclick="goSlide(0)"></button>
+      <button class="mdot" onclick="goSlide(1)"></button>
+      <button class="mdot" onclick="goSlide(2)"></button>
+      <button class="mdot" onclick="goSlide(3)"></button>
+    </div>
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">&#10005;</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-caption" id="lb-caption"></div>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+  </div>
+</div>
 
 <section class="cta-section" id="contacto">
   <h2>¿Listo para modernizar<br><em>tu operación?</em></h2>
@@ -333,6 +400,11 @@ footer p{font-size:.78rem;color:rgba(255,255,255,.3)}
 </footer>
 
 <script>
+const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('in'),i*70)})},{threshold:0.08})
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+</script>
+</body>
+</html>
 const obs=new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('in'),i*70)})},{threshold:0.08})
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
 </script>
